@@ -220,9 +220,9 @@ class GNN_IPinfo_Updater
                 delete_transient($this->transient_key);
                 delete_site_transient('update_plugins');
                 
-                add_action('admin_notices', function() {
-                    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Update cache cleared. WordPress will now check GitHub for new versions.', 'gnn-ipinfo') . '</p></div>';
-                });
+                // Redirect to the core updates page to show the result
+                wp_safe_redirect(admin_url('update-core.php?force-check=1'));
+                exit;
             }
         }
     }

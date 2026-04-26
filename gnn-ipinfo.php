@@ -56,14 +56,22 @@ function gnn_ipinfo_render_settings_page() {
             <h2><?php _e('GNN System Info', 'gnn-ipinfo'); ?></h2>
             <div class="gnn-ipinfo-status-item">
                 <span class="gnn-ipinfo-status-label"><?php _e('Plugin Version:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value">0.1.1</span>
+                <span class="gnn-ipinfo-status-value">
+                    <?php 
+                    if (!function_exists('get_plugin_data')) {
+                        require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+                    }
+                    $plugin_data = get_plugin_data(__FILE__);
+                    echo esc_html($plugin_data['Version']); 
+                    ?>
+                </span>
             </div>
             <div class="gnn-ipinfo-status-item">
                 <span class="gnn-ipinfo-status-label"><?php _e('API Provider:', 'gnn-ipinfo'); ?></span>
                 <span class="gnn-ipinfo-status-value">ipinfo.io</span>
             </div>
             <p style="margin-top:15px; margin-bottom:0;">
-                <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button button-secondary">
+                <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button button-primary">
                     <?php _e('Check for Updates Now', 'gnn-ipinfo'); ?>
                 </a>
             </p>

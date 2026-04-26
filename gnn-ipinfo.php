@@ -52,11 +52,22 @@ function gnn_ipinfo_render_settings_page() {
             ?>
         </form>
         <hr>
-        <p>
-            <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button secondary">
-                <?php _e('Check for Updates Now', 'gnn-ipinfo'); ?>
-            </a>
-        </p>
+        <div class="gnn-ipinfo-status-card">
+            <h2><?php _e('GNN System Info', 'gnn-ipinfo'); ?></h2>
+            <div class="gnn-ipinfo-status-item">
+                <span class="gnn-ipinfo-status-label"><?php _e('Plugin Version:', 'gnn-ipinfo'); ?></span>
+                <span class="gnn-ipinfo-status-value">0.1.1</span>
+            </div>
+            <div class="gnn-ipinfo-status-item">
+                <span class="gnn-ipinfo-status-label"><?php _e('API Provider:', 'gnn-ipinfo'); ?></span>
+                <span class="gnn-ipinfo-status-value">ipinfo.io</span>
+            </div>
+            <p style="margin-top:15px; margin-bottom:0;">
+                <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button button-secondary">
+                    <?php _e('Check for Updates Now', 'gnn-ipinfo'); ?>
+                </a>
+            </p>
+        </div>
     </div>
     <?php
 }
@@ -77,7 +88,8 @@ function gnn_ipinfo_token_field_callback() {
 
 // Enqueue CSS styles for both frontend and backend
 function gnn_ipinfo_enqueue_styles() {
-    wp_enqueue_style('gnn-ipinfo-style', plugins_url('style.css', __FILE__));
+    $version = '0.1.1'; // Match plugin version
+    wp_enqueue_style('gnn-ipinfo-style', plugins_url('style.css', __FILE__), array(), $version);
 }
 add_action('wp_enqueue_scripts', 'gnn_ipinfo_enqueue_styles');
 add_action('admin_enqueue_scripts', 'gnn_ipinfo_enqueue_styles');

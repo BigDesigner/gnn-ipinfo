@@ -4,108 +4,127 @@
  */
 
 :root {
-    --gnn-ipinfo-blur: 15px;
-    --gnn-ipinfo-radius: 12px;
+    --gnn-ipinfo-blur: 20px;
+    --gnn-ipinfo-radius: 16px;
     --gnn-ipinfo-border: rgba(128, 128, 128, 0.2);
-    --gnn-ipinfo-bg-light: rgba(255, 255, 255, 0.05);
-    --gnn-ipinfo-bg-dark: rgba(0, 0, 0, 0.05);
+    /* We use a very subtle neutral background that adapts to what is behind it */
+    --gnn-ipinfo-bg: rgba(128, 128, 128, 0.08);
+    --gnn-ipinfo-accent: currentColor;
 }
 
 .gnn-ipinfo-container {
-    background: var(--gnn-ipinfo-bg-light);
-    backdrop-filter: blur(var(--gnn-ipinfo-blur));
-    -webkit-backdrop-filter: blur(var(--gnn-ipinfo-blur));
-    border: 1px solid var(--gnn-ipinfo-border);
-    padding: 30px;
-    border-radius: var(--gnn-ipinfo-radius);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-    max-width: 550px;
-    margin: 20px auto;
-    text-align: center;
-    color: inherit; /* Respect theme text color */
-    font-family: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--gnn-ipinfo-bg) !important;
+    backdrop-filter: blur(var(--gnn-ipinfo-blur)) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(var(--gnn-ipinfo-blur)) saturate(180%) !important;
+    border: 1px solid var(--gnn-ipinfo-border) !important;
+    padding: 40px 30px !important;
+    border-radius: var(--gnn-ipinfo-radius) !important;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1) !important;
+    max-width: 600px !important;
+    margin: 30px auto !important;
+    text-align: center !important;
+    color: inherit !important; /* Forces the use of theme's text color */
+    font-family: inherit !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .gnn-ipinfo-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(128, 128, 128, 0.4) !important;
 }
 
 .gnn-ipinfo-ip {
-    font-size: clamp(24px, 5vw, 42px);
-    font-weight: 800;
-    margin-bottom: 25px;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, currentColor 0%, rgba(128, 128, 128, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Fallback for browsers not supporting text-fill-color */
-@supports not (-webkit-text-fill-color: transparent) {
-    .gnn-ipinfo-ip {
-        background: none;
-        color: inherit;
-        -webkit-text-fill-color: inherit;
-    }
+    font-size: clamp(28px, 6vw, 48px) !important;
+    font-weight: 900 !important;
+    margin-bottom: 30px !important;
+    letter-spacing: -0.03em !important;
+    /* Use a gradient that blends with the current text color */
+    background: linear-gradient(180deg, currentColor 0%, rgba(128, 128, 128, 0.5) 100%);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    line-height: 1.2 !important;
 }
 
 .gnn-ipinfo-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
 }
 
-@media (min-width: 400px) {
+@media (min-width: 480px) {
     .gnn-ipinfo-list {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
     }
 }
 
 .gnn-ipinfo-list li {
-    padding: 10px 15px;
-    background: rgba(128, 128, 128, 0.05);
-    border-radius: 8px;
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    border-left: 3px solid var(--gnn-ipinfo-border);
+    padding: 12px 20px !important;
+    background: rgba(128, 128, 128, 0.05) !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-left: 4px solid var(--gnn-ipinfo-border) !important;
+    transition: background 0.3s ease;
+}
+
+.gnn-ipinfo-list li:hover {
+    background: rgba(128, 128, 128, 0.1) !important;
 }
 
 .gnn-ipinfo-list li strong {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.6;
-    margin-bottom: 4px;
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    opacity: 0.5 !important;
+    margin-bottom: 5px !important;
+    font-weight: 700 !important;
 }
 
 /* Error styling */
 .gnn-ipinfo-error {
-    padding: 15px;
+    padding: 20px;
     background: rgba(214, 54, 56, 0.1);
     border: 1px solid rgba(214, 54, 56, 0.2);
-    border-radius: 8px;
+    border-radius: 12px;
     color: #d63638;
     text-align: center;
-    margin: 10px 0;
+    font-weight: 600;
 }
 
-/* Admin Donate Icon */
-.gnn-ipinfo-donate-icon::after {
-    content: '☕';
-    margin-left: 5px;
-    filter: grayscale(1) brightness(1.2);
+/* Admin / Settings Page Elements */
+.gnn-ipinfo-status-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    max-width: 400px;
 }
 
-/* Dark mode theme detection fallback */
-@media (prefers-color-scheme: dark) {
-    .gnn-ipinfo-container {
-        background: var(--gnn-ipinfo-bg-dark);
-    }
+.gnn-ipinfo-status-card h2 {
+    margin-top: 0;
+    font-size: 1.1em;
+}
+
+.gnn-ipinfo-status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.gnn-ipinfo-status-label {
+    font-weight: 600;
+    color: #50575e;
+}
+
+.gnn-ipinfo-status-value {
+    font-family: monospace;
 }

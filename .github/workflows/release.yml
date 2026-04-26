@@ -51,10 +51,11 @@ jobs:
                     --exclude='docs' \
                     --exclude='archive' \
                     --exclude='.gitignore' \
-                    --exclude='implementation_plan.md' \
-                    --exclude='task.md' \
-                    --exclude='walkthrough.md' \
+                    --exclude='*.md' \
                     ./ build/gnn-ipinfo/
+          
+          # Explicitly include only CHANGELOG.md
+          cp CHANGELOG.md build/gnn-ipinfo/
           
           # Zip the build directory (this will include the gnn-ipinfo folder)
           cd build && zip -r "../$ZIP_NAME" gnn-ipinfo && cd ..

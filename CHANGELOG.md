@@ -5,19 +5,14 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
-## [0.1.2] - 2026-04-26
+## [0.2.0] - 2026-04-26
 ### Added
-- **Feature:** Added "Copy to Clipboard" button for the IP address.
-- **Feature:** Added "Debug Mode" for administrators to view raw API data.
-- **UI:** Refined Glassmorphism CSS for better theme compatibility and hover effects.
-
-## [0.1.1] - 2026-04-26
-### Added
-- **Performance:** Implemented 1-hour transient caching for IPinfo.io API requests.
-- **Security:** Added nonce verification for manual update checks.
-- **UI/UX:** Redesigned shortcode output with "GNN Premium" Glassmorphism CSS.
-- **Compatibility:** Universal Dark/Light theme support for frontend display.
-- **Maintenance:** Added "Check for Updates Now" button to the settings page.
+- **Premium UI:** Advanced Glassmorphism design with universal Dark/Light theme compatibility.
+- **Performance:** 1-hour transient caching for API requests.
+- **Utility:** "Copy to Clipboard" button for the IP address.
+- **Admin:** "GNN System Info" card with dynamic version display and secure manual update check.
+- **Security:** Nonce verification and enhanced data sanitization.
+- **Debug:** New "Debug Mode" for administrators to view raw API data.
 
 ## [0.1.0] - 2026-04-26
 ### Added

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:			GNN IPinfo
  * Description: 		A plugin that displays visitor IP information using the IPinfo.io API.
- * Version:				0.2.3
+ * Version:				0.2.5
  * Requires at least:	6.4
  * Requires PHP: 		7.4
  * Author URI: 			https://www.bigdesigner.com
@@ -74,11 +74,6 @@ function gnn_ipinfo_render_settings_page() {
                 <span class="gnn-ipinfo-status-label"><?php _e('API Provider:', 'gnn-ipinfo'); ?></span>
                 <span class="gnn-ipinfo-status-value">ipinfo.io</span>
             </div>
-            <p style="margin-top:15px; margin-bottom:0;">
-                <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button button-primary">
-                    <?php _e('Check for Updates Now', 'gnn-ipinfo'); ?>
-                </a>
-            </p>
         </div>
     </div>
     <?php
@@ -111,7 +106,7 @@ function gnn_ipinfo_debug_mode_field_callback() {
 
 // Enqueue CSS and JS for both frontend and backend
 function gnn_ipinfo_enqueue_assets() {
-    $version = '0.2.3'; // Updated for final security release
+    $version = '0.2.5'; // Updated for UI enhancements
     // Changing the handle name to 'gnn-ipinfo-premium' to bypass old caches
     wp_enqueue_style('gnn-ipinfo-premium', plugins_url('style.css', __FILE__), array(), $version);
     
@@ -206,12 +201,25 @@ function gnn_ipinfo_shortcode($atts) {
 }
 add_shortcode('gnn_ipinfo', 'gnn_ipinfo_shortcode');
 
-// Add settings and donation links to the plugin page
+// Add settings, update and donation links to the plugin page
 function gnn_ipinfo_plugin_links($links) {
-    $settings_link = '<a href="options-general.php?page=gnn-ipinfo">' . __('Settings', 'gnn-ipinfo') . '</a>';
-    $donate_link = '<a href="https://buymeacoffee.com/bigdesigner" target="_blank">' . __('Donate', 'gnn-ipinfo') . '<span class="gnn-ipinfo-donate-icon"></span></a>';
-    array_unshift($links, $settings_link, $donate_link);
-    return $links;
+    // 1. Settings Link
+    $settings_link = '<a href="options-general.php?page=gnn-ipinfo" style="font-weight: 600;">' . esc_html__('Settings', 'gnn-ipinfo') . '</a>';
+
+    // 2. Check Updates Link with an icon
+    $update_url = wp_nonce_url(admin_url('plugins.php?gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update');
+    $update_link = '<a href="' . esc_url($update_url) . '" style="color: #2271b1; display: inline-flex; align-items: center; gap: 4px;"><span class="dashicons dashicons-update" style="font-size: 16px; width: 16px; height: 16px;"></span>' . esc_html__('Check Updates', 'gnn-ipinfo') . '</a>';
+    
+    // 3. Donate Link with a heartbeat icon and elegant styling
+    $donate_link = '<a href="https://buymeacoffee.com/bigdesigner" target="_blank" style="font-weight: 600; color: #d63638; display: inline-flex; align-items: center; gap: 4px;"><span class="dashicons dashicons-heart" style="font-size: 16px; width: 16px; height: 16px;"></span>' . esc_html__('Donate', 'gnn-ipinfo') . '</a>';
+    
+    $custom_links = array(
+        'settings' => $settings_link,
+        'update'   => $update_link,
+        'donate'   => $donate_link,
+    );
+    
+    return array_merge($custom_links, $links);
 }
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'gnn_ipinfo_plugin_links');
 

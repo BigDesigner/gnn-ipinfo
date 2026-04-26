@@ -5,6 +5,12 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.5] - 2026-04-26
+### Added
+- **UI:** Refactored plugin action links on the plugins page to include Dashicons (Settings, Update, Donate) and improved flexbox styling for a premium aesthetic.
+### Removed
+- **UI:** Removed the redundant "Check for Updates Now" button from the Settings page since it's now accessible via the Plugins page action links.
+
 ## [0.2.3] - 2026-04-26
 ### Fixed
 - **Security:** Conducted full security audit and implemented ABSPATH guard in all PHP files.

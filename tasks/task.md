@@ -59,7 +59,7 @@ This document tracks the evolution of the GNN IPinfo WordPress plugin from its f
 
 ## 📂 Backlog
 ### Sprint v0.2.5 — UI Enhancements
-- [x] Refactored plugin action links with Dashicons and Flexbox alignment.
+- [x] Standardized plugin action links to plain text to match GNN Whois aesthetic.
 - [x] Removed redundant update button from the Settings page.
 
 - [ ] No pending tasks. System is production ready.

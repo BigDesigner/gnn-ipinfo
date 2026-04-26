@@ -201,25 +201,17 @@ function gnn_ipinfo_shortcode($atts) {
 }
 add_shortcode('gnn_ipinfo', 'gnn_ipinfo_shortcode');
 
-// Add settings, update and donation links to the plugin page
+// Add plugin action links
 function gnn_ipinfo_plugin_links($links) {
-    // 1. Settings Link
-    $settings_link = '<a href="options-general.php?page=gnn-ipinfo" style="font-weight: 600;">' . esc_html__('Settings', 'gnn-ipinfo') . '</a>';
-
-    // 2. Check Updates Link with an icon
+    $donate_link = '<a href="https://buymeacoffee.com/bigdesigner" target="_blank" style="font-weight:bold; color:#d63638;">' . esc_html__('Donate', 'gnn-ipinfo') . '</a>';
+    
+    $settings_link = '<a href="options-general.php?page=gnn-ipinfo">' . esc_html__('Settings', 'gnn-ipinfo') . '</a>';
+    
     $update_url = wp_nonce_url(admin_url('plugins.php?gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update');
-    $update_link = '<a href="' . esc_url($update_url) . '" style="color: #2271b1; display: inline-flex; align-items: center; gap: 4px;"><span class="dashicons dashicons-update" style="font-size: 16px; width: 16px; height: 16px;"></span>' . esc_html__('Check Updates', 'gnn-ipinfo') . '</a>';
+    $update_link = '<a href="' . esc_url($update_url) . '">' . esc_html__('Check Updates', 'gnn-ipinfo') . '</a>';
     
-    // 3. Donate Link with a heartbeat icon and elegant styling
-    $donate_link = '<a href="https://buymeacoffee.com/bigdesigner" target="_blank" style="font-weight: 600; color: #d63638; display: inline-flex; align-items: center; gap: 4px;"><span class="dashicons dashicons-heart" style="font-size: 16px; width: 16px; height: 16px;"></span>' . esc_html__('Donate', 'gnn-ipinfo') . '</a>';
-    
-    $custom_links = array(
-        'settings' => $settings_link,
-        'update'   => $update_link,
-        'donate'   => $donate_link,
-    );
-    
-    return array_merge($custom_links, $links);
+    array_unshift($links, $donate_link, $settings_link, $update_link);
+    return $links;
 }
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'gnn_ipinfo_plugin_links');
 

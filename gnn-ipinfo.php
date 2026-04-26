@@ -99,10 +99,10 @@ function gnn_ipinfo_debug_mode_field_callback() {
 
 // Enqueue CSS and JS for both frontend and backend
 function gnn_ipinfo_enqueue_assets() {
-    $version = '0.1.1'; // Match plugin version
-    wp_enqueue_style('gnn-ipinfo-style', plugins_url('style.css', __FILE__), array(), $version);
+    $version = '0.1.2.1'; // Force new version
+    // Changing the handle name to 'gnn-ipinfo-premium' to bypass old caches
+    wp_enqueue_style('gnn-ipinfo-premium', plugins_url('style.css', __FILE__), array(), $version);
     
-    // Only enqueue JS on the frontend
     if (!is_admin()) {
         wp_enqueue_script('gnn-ipinfo-copy', plugins_url('assets/js/copy-ip.js', __FILE__), array(), $version, true);
     }
@@ -152,7 +152,7 @@ function gnn_ipinfo_shortcode($atts) {
         set_transient($cache_key, $data, HOUR_IN_SECONDS);
     }
 
-    $output = '<div class="gnn-ipinfo-container">';
+    $output = '<div id="gnn-ipinfo-premium-box" class="gnn-ipinfo-container">';
     $output .= '<div class="gnn-ipinfo-ip-wrapper">';
     $output .= '<span class="gnn-ipinfo-ip-text">' . esc_html($data['ip']) . '</span>';
     $output .= '<button class="gnn-ipinfo-copy-btn" title="' . esc_attr__('Copy IP', 'gnn-ipinfo') . '" aria-label="' . esc_attr__('Copy IP address', 'gnn-ipinfo') . '">';

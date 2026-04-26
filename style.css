@@ -34,16 +34,51 @@
     border-color: rgba(128, 128, 128, 0.4) !important;
 }
 
-.gnn-ipinfo-ip {
+.gnn-ipinfo-ip-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin-bottom: 30px !important;
+}
+
+.gnn-ipinfo-ip-text {
     font-size: clamp(28px, 6vw, 48px) !important;
     font-weight: 900 !important;
-    margin-bottom: 30px !important;
     letter-spacing: -0.03em !important;
-    /* Use a gradient that blends with the current text color */
     background: linear-gradient(180deg, currentColor 0%, rgba(128, 128, 128, 0.5) 100%);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     line-height: 1.2 !important;
+}
+
+.gnn-ipinfo-copy-btn {
+    background: rgba(128, 128, 128, 0.1) !important;
+    border: 1px solid var(--gnn-ipinfo-border) !important;
+    color: inherit !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    line-height: 0 !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.gnn-ipinfo-copy-btn:hover {
+    background: rgba(128, 128, 128, 0.2) !important;
+    transform: scale(1.1);
+}
+
+.gnn-ipinfo-copy-btn:active {
+    transform: scale(0.9);
+}
+
+.gnn-ipinfo-copy-btn.is-copied {
+    background: rgba(0, 163, 42, 0.2) !important;
+    border-color: rgba(0, 163, 42, 0.4) !important;
+    color: #00a32a !important;
 }
 
 .gnn-ipinfo-list {
@@ -127,4 +162,32 @@
 
 .gnn-ipinfo-status-value {
     font-family: monospace;
+}
+
+/* Debug view */
+.gnn-ipinfo-debug {
+    margin-top: 30px !important;
+    text-align: left !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border: 1px dashed var(--gnn-ipinfo-border) !important;
+    padding: 15px !important;
+    border-radius: 12px !important;
+}
+
+.gnn-ipinfo-debug h4 {
+    margin: 0 0 10px 0 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    opacity: 0.6 !important;
+}
+
+.gnn-ipinfo-debug pre {
+    margin: 0 !important;
+    font-size: 11px !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+    opacity: 0.8 !important;
+    line-height: 1.4 !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
 }

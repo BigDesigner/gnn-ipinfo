@@ -1,49 +1,61 @@
-# Task List
+# Task List: GNN IPinfo
 
-## Completed
-- [x] MB-001: Create Memory Bank structure.
-- [x] MB-002: Initialize boilerplate documentation.
-- [x] MB-003: Create .gitignore file.
-- [x] OPS-001: Create GitHub Actions Release workflow.
-- [x] ELM-001: Implement Elementor Compatibility Layer.
-- [x] ELM-002: Create Elementor-specific "Page Builder" templates (Full Width + Canvas).
-- [x] ELM-003: Optimize theme CSS for Elementor reset compatibility.
-- [x] DEV-001: Analyze existing theme logic for modularity.
-- [x] SEO-001: Implement meta tag management (OG, Twitter, Schema, per-post SEO metabox).
-- [x] CUST-001: Implement Native Customizer API (Header, Footer, Typography).
-- [x] CUST-003: Integrate Selective Refresh for real-time Customizer updates.
-- [x] CUST-004: Implement `theme.json` Design System (Gutenberg & Site Editor sync).
-- [x] UI-001: Design responsive navigation.
-- [x] CUST-002: Add Native Slider/Carousel controls via Customizer.
-- [x] SEC-001: Implement Cloudflare Turnstile integration for login/forms.
-- [x] SEC-002: Implement Google reCAPTCHA v3 fallback integration.
-- [x] ANA-001: Implement Google Analytics (GA4) integration via Customizer.
-- [x] PERF-001: Implement asset optimization (minification, critical CSS).
-- [x] UI-002: Implement Custom Magnetic Cursor via GSAP.
-- [x] A11Y-001: Accessibility audit and improvements.
-- [x] I18N-001: Translation-readiness audit and .pot file generation.
-- [x] TMPL-001: Complete WordPress template hierarchy (single, archive, search, 404, comments).
+This document tracks the evolution of the GNN IPinfo WordPress plugin from its foundation to its current production-ready state.
 
-## Sprint v1.7.1 — Static Hero Image ✅ PASS
-- [x] HERO-001: Add Static Hero Image support to Customizer. → **PASS**
-- [x] HERO-002: Implement static hero image rendering in `header.php`. → **PASS**
-- [x] HERO-003: Add `.gnn-hero-static-wrapper` CSS. → **PASS**
-- [x] HERO-004: Verify sanitization, escaping, i18n compliance. → **PASS**
-- [x] DOC-001: Update CHANGELOG.md, style.css → 1.7.1, snapshot.md. → **PASS**
+## ✅ Completed Milestones
 
-## Sprint v1.8.0 — GitHub Auto-Updater ✅ PASS
-- [x] UPD-001: Create `inc/updater.php` — GNN_GitHub_Updater class. → **PASS**
-- [x] UPD-002: Register module in `functions.php`. → **PASS**
-- [x] UPD-003: Update `release.yml` rsync excludes. → **PASS**
-- [x] UPD-004: Verify sanitization, escaping, error handling. → **PASS**
-- [x] DOC-001: Bump version → 1.8.0, CHANGELOG, snapshot. → **PASS**
+### MB — Foundation & Infrastructure
+- [x] **MB-001:** Initialize project structure as a WordPress Plugin.
+- [x] **MB-002:** Set up GitHub Actions for automated `.zip` releases.
+- [x] **MB-003:** Create specialized Memory Bank for AI context persistence.
 
-## Sprint v1.8.1 — Update Control Panel ✅ PASS
-- [x] UPD-005: Add Customizer toggle (`enable_github_updates`) to enable/disable auto-updates. → **PASS**
-- [x] UPD-006: Create admin page (Appearance > Theme Updates) with status dashboard. → **PASS**
-- [x] UPD-007: Implement "Check for Updates Now" button with nonce protection. → **PASS**
-- [x] UPD-008: Verify all new admin output is escaped and nonce-protected. → **PASS**
-- [x] DOC-002: Bump version → 1.8.1, CHANGELOG, snapshot. → **PASS**
+### SEC — Security & Hardening
+- [x] **SEC-001:** Implement Nonce verification for all admin-side manual update checks.
+- [x] **SEC-002:** Apply strict Sanitization (`sanitize_text_field`, `absint`) for settings.
+- [x] **SEC-003:** Implement `defined('ABSPATH') || exit;` guard in all PHP files.
+- [x] **SEC-004:** Apply comprehensive Output Escaping (`esc_html`, `esc_attr`) in shortcodes and admin.
 
-## Backlog
-- (empty)
+### PERF — Performance & Optimization
+- [x] **PERF-001:** Implement WordPress Transients API for 1-hour API response caching.
+- [x] **PERF-002:** Optimize CSS/JS enqueuing with dynamic versioning to prevent cache issues.
+
+### UI — Premium Design System
+- [x] **UI-001:** Design "GNN Premium" Glassmorphism UI for shortcode output.
+- [x] **UI-002:** Implement Universal Theme Compatibility (Auto-adapts to Dark/Light modes).
+- [x] **UI-003:** Implement "Copy IP to Clipboard" functionality with interactive feedback.
+- [x] **UI-004:** Refine layout to a Minimalist Single-Column vertical list.
+
+### FEAT — Advanced Features
+- [x] **FEAT-001:** Create GitHub-based automatic update system (`inc/updater.php`).
+- [x] **FEAT-002:** Add "GNN System Info" status card to settings page.
+- [x] **FEAT-003:** Implement "Debug Mode" for administrators to view raw API data.
+
+---
+
+## 🚀 Release History
+
+### Sprint v0.1.0 — Initial Foundation
+- [x] Boilerplate code and basic API integration.
+- [x] GitHub Actions release workflow.
+
+### Sprint v0.1.x — Performance & Security
+- [x] Transient caching implementation.
+- [x] Initial Glassmorphism UI experiments.
+- [x] Manual update check button.
+
+### Sprint v0.2.0 — Premium Overhaul
+- [x] Major UI redesign (Glassmorphism).
+- [x] Copy IP to clipboard feature.
+- [x] Debug mode implementation.
+
+### Sprint v0.2.1/0.2.2 — Layout Refinement
+- [x] Minimalist dimensions and compact font sizes.
+- [x] Single-column (vertical list) layout fix for better readability.
+
+### Sprint v0.2.3 — Production Hardening (Final)
+- [x] Full security audit.
+- [x] ABSPATH protection.
+- [x] Final README and Documentation sync.
+
+## 📂 Backlog
+- [ ] No pending tasks. System is production ready.

@@ -5,6 +5,10 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.6] - 2026-04-26
+### Fixed
+- **UI:** Pushed a hotfix to ensure the plain text action links layout is properly released and active for all users.
+
 ## [0.2.5] - 2026-04-26
 ### Changed
 - **UI:** Reverted plugin action links to plain text to match the clean aesthetic of GNN Whois.

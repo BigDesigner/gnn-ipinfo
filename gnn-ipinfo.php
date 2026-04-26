@@ -2,7 +2,7 @@
 /**
  * Plugin Name:			GNN IPinfo
  * Description: 		A plugin that displays visitor IP information using the IPinfo.io API.
- * Version:				0.2.5
+ * Version:				0.2.6
  * Requires at least:	6.4
  * Requires PHP: 		7.4
  * Author URI: 			https://www.bigdesigner.com
@@ -106,7 +106,7 @@ function gnn_ipinfo_debug_mode_field_callback() {
 
 // Enqueue CSS and JS for both frontend and backend
 function gnn_ipinfo_enqueue_assets() {
-    $version = '0.2.5'; // Updated for UI enhancements
+    $version = '0.2.6'; // Bumped for release
     // Changing the handle name to 'gnn-ipinfo-premium' to bypass old caches
     wp_enqueue_style('gnn-ipinfo-premium', plugins_url('style.css', __FILE__), array(), $version);
     

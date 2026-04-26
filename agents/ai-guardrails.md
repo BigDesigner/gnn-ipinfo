@@ -66,7 +66,23 @@ if ( false === $data ) {
 }
 ```
 
-### 6. ABSPATH Guard — FILE SECURITY
+### 6. Theme Compatibility — ZERO CONFLICT CSS
+The plugin MUST work on any theme (Black, White, Colorful).
+- **Colors:** Never hardcode text colors as `#000` or `#fff`. Use `color: inherit;` or CSS variables with very safe fallbacks.
+- **Backgrounds:** Use semi-transparent backgrounds (rgba) or glassmorphism (`backdrop-filter`) to ensure the container looks premium on any theme background.
+- **Borders:** Use `currentColor` or very low-opacity borders.
+
+```css
+/* ✅ REQUIRED — works on both dark and light themes */
+.gnn-ipinfo-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    color: inherit;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+```
+
+### 7. ABSPATH Guard — FILE SECURITY
 Every PHP file MUST start with the ABSPATH check to prevent direct access.
 
 ```php

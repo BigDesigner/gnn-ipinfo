@@ -6,7 +6,7 @@
 - [ ] **i18n-001:** Verify all strings in `gnn-ipinfo.php` are properly wrapped in localization functions.
 
 ## Feature Enhancements
-- [ ] **FEAT-001:** Improve Shortcode UI with "GNN Premium" CSS (Glassmorphism, Icons).
+- [ ] **FEAT-001:** Improve Shortcode UI with "GNN Premium" CSS (Glassmorphism, Icons, and **Universal Theme Compatibility** for Dark/Light modes).
 - [ ] **FEAT-002:** Add "Copy IP to Clipboard" button in the frontend display.
 - [ ] **FEAT-003:** Implement a "Debug Mode" toggle to see raw API responses in the admin.
 

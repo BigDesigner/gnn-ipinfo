@@ -11,7 +11,7 @@
 ## 2. Code Quality
 - **PHP:** PSR-12 compliance.
 - **JS:** Standard JS with ES6+ features.
-- **CSS:** Vanilla CSS with custom properties (CSS variables).
+- **CSS:** Vanilla CSS with custom properties (CSS variables). **Priority:** Zero-conflict theme compatibility (Dark/Light mode support via inheritance and semi-transparent layers).
 
 ## 3. Documentation
 - All functions MUST have PHPDoc blocks.

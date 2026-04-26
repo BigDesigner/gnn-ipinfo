@@ -1,27 +1,25 @@
 /**
  * GNN IPinfo Premium Styles
- * Designed for universal theme compatibility (Dark/Light).
- * v0.1.2.2 - Static Layout & No Animations
+ * v0.2.1 - Minimalist & Compact Layout
  */
 
 :root {
     --gnn-ipinfo-blur: 25px;
-    --gnn-ipinfo-radius: 20px;
-    --gnn-ipinfo-border: rgba(128, 128, 128, 0.25);
-    --gnn-ipinfo-bg: rgba(128, 128, 128, 0.1);
+    --gnn-ipinfo-radius: 16px;
+    --gnn-ipinfo-border: rgba(128, 128, 128, 0.2);
+    --gnn-ipinfo-bg: rgba(128, 128, 128, 0.08);
 }
 
-/* Using ID for maximum specificity */
 #gnn-ipinfo-premium-box.gnn-ipinfo-container {
     background: var(--gnn-ipinfo-bg) !important;
     backdrop-filter: blur(var(--gnn-ipinfo-blur)) saturate(200%) !important;
     -webkit-backdrop-filter: blur(var(--gnn-ipinfo-blur)) saturate(200%) !important;
     border: 1px solid var(--gnn-ipinfo-border) !important;
-    padding: 40px 30px !important;
+    padding: 25px !important; /* Reduced padding */
     border-radius: var(--gnn-ipinfo-radius) !important;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2) !important;
-    max-width: 500px !important;
-    margin: 40px auto !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+    max-width: 700px !important; /* Increased horizontal width */
+    margin: 10px auto !important; /* Minimalist margin */
     text-align: center !important;
     color: inherit !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
@@ -34,27 +32,26 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 20px !important;
-    margin-bottom: 35px !important;
-    flex-wrap: wrap !important;
+    gap: 15px !important;
+    margin-bottom: 20px !important; /* Reduced margin */
 }
 
 #gnn-ipinfo-premium-box .gnn-ipinfo-ip-text {
-    font-size: clamp(32px, 7vw, 52px) !important;
-    font-weight: 900 !important;
-    letter-spacing: -0.04em !important;
-    background: linear-gradient(180deg, currentColor 0%, rgba(128, 128, 128, 0.4) 100%);
+    font-size: clamp(24px, 5vw, 36px) !important; /* Smaller, minimalist IP */
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    background: linear-gradient(180deg, currentColor 0%, rgba(128, 128, 128, 0.5) 100%);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     line-height: 1 !important;
 }
 
 #gnn-ipinfo-premium-box .gnn-ipinfo-copy-btn {
-    background: rgba(128, 128, 128, 0.15) !important;
+    background: rgba(128, 128, 128, 0.1) !important;
     border: 1px solid var(--gnn-ipinfo-border) !important;
     color: inherit !important;
-    padding: 12px !important;
-    border-radius: 12px !important;
+    padding: 8px !important; /* Smaller button */
+    border-radius: 10px !important;
     cursor: pointer !important;
     line-height: 0 !important;
     display: inline-flex !important;
@@ -64,13 +61,18 @@
     transition: background 0.3s ease !important;
 }
 
+#gnn-ipinfo-premium-box .gnn-ipinfo-copy-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
 #gnn-ipinfo-premium-box .gnn-ipinfo-copy-btn:hover {
-    background: rgba(128, 128, 128, 0.3) !important;
+    background: rgba(128, 128, 128, 0.2) !important;
 }
 
 #gnn-ipinfo-premium-box .gnn-ipinfo-copy-btn.is-copied {
-    background: rgba(34, 197, 94, 0.2) !important;
-    border-color: rgba(34, 197, 94, 0.5) !important;
+    background: rgba(34, 197, 94, 0.15) !important;
+    border-color: rgba(34, 197, 94, 0.4) !important;
     color: #22c55e !important;
 }
 
@@ -79,47 +81,46 @@
     padding: 0 !important;
     margin: 0 !important;
     text-align: left !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; /* Back to grid but compact */
+    gap: 10px !important;
 }
 
 #gnn-ipinfo-premium-box .gnn-ipinfo-list li {
-    padding: 15px 20px !important;
-    background: rgba(128, 128, 128, 0.08) !important;
-    border-radius: 14px !important;
-    font-size: 15px !important;
+    padding: 10px 15px !important; /* Compact vertical padding */
+    background: rgba(128, 128, 128, 0.05) !important;
+    border-radius: 10px !important;
+    font-size: 13px !important; /* Smaller font for minimalist look */
     display: flex !important;
     flex-direction: column !important;
-    border-left: 5px solid var(--gnn-ipinfo-border) !important;
+    border-left: 3px solid var(--gnn-ipinfo-border) !important;
 }
 
 #gnn-ipinfo-premium-box .gnn-ipinfo-list li strong {
-    font-size: 10px !important;
+    font-size: 9px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.2em !important;
+    letter-spacing: 0.15em !important;
     opacity: 0.5 !important;
-    margin-bottom: 6px !important;
-    font-weight: 800 !important;
+    margin-bottom: 3px !important;
+    font-weight: 700 !important;
 }
 
 /* Error styling */
 .gnn-ipinfo-error {
-    padding: 25px;
+    padding: 15px;
     background: rgba(239, 68, 68, 0.1);
     border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 16px;
+    border-radius: 12px;
     color: #ef4444;
     text-align: center;
-    font-weight: 700;
 }
 
 /* Admin / Settings Page */
 .gnn-ipinfo-status-card {
     background: #fff;
     border: 1px solid #dcdcde;
-    padding: 25px;
-    margin-top: 25px;
-    border-radius: 12px;
-    max-width: 450px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    max-width: 400px;
 }

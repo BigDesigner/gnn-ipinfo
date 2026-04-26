@@ -5,6 +5,13 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.1] - 2026-04-26
+### Changed
+- **UI:** Switched to a more minimalist and compact layout.
+- **UI:** Reduced container padding and margins to match theme standards.
+- **UI:** Increased horizontal width for better data presentation.
+- **UI:** Scaled down IP text and list item heights for a cleaner aesthetic.
+
 ## [0.2.0] - 2026-04-26
 ### Added
 - **Premium UI:** Advanced Glassmorphism design with universal Dark/Light theme compatibility.

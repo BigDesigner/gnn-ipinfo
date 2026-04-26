@@ -1,40 +1,111 @@
+/**
+ * GNN IPinfo Premium Styles
+ * Designed for universal theme compatibility (Dark/Light).
+ */
+
+:root {
+    --gnn-ipinfo-blur: 15px;
+    --gnn-ipinfo-radius: 12px;
+    --gnn-ipinfo-border: rgba(128, 128, 128, 0.2);
+    --gnn-ipinfo-bg-light: rgba(255, 255, 255, 0.05);
+    --gnn-ipinfo-bg-dark: rgba(0, 0, 0, 0.05);
+}
+
 .gnn-ipinfo-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 0 auto;
+    background: var(--gnn-ipinfo-bg-light);
+    backdrop-filter: blur(var(--gnn-ipinfo-blur));
+    -webkit-backdrop-filter: blur(var(--gnn-ipinfo-blur));
+    border: 1px solid var(--gnn-ipinfo-border);
+    padding: 30px;
+    border-radius: var(--gnn-ipinfo-radius);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    max-width: 550px;
+    margin: 20px auto;
     text-align: center;
+    color: inherit; /* Respect theme text color */
+    font-family: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gnn-ipinfo-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
 }
 
 .gnn-ipinfo-ip {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: clamp(24px, 5vw, 42px);
+    font-weight: 800;
+    margin-bottom: 25px;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, currentColor 0%, rgba(128, 128, 128, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Fallback for browsers not supporting text-fill-color */
+@supports not (-webkit-text-fill-color: transparent) {
+    .gnn-ipinfo-ip {
+        background: none;
+        color: inherit;
+        -webkit-text-fill-color: inherit;
+    }
 }
 
 .gnn-ipinfo-list {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     text-align: left;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 400px) {
+    .gnn-ipinfo-list {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 }
 
 .gnn-ipinfo-list li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #555;
+    padding: 10px 15px;
+    background: rgba(128, 128, 128, 0.05);
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid var(--gnn-ipinfo-border);
 }
 
 .gnn-ipinfo-list li strong {
-    display: inline-block;
-    width: 120px;
-    font-weight: bold;
-    color: #333;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    margin-bottom: 4px;
 }
+
+/* Error styling */
+.gnn-ipinfo-error {
+    padding: 15px;
+    background: rgba(214, 54, 56, 0.1);
+    border: 1px solid rgba(214, 54, 56, 0.2);
+    border-radius: 8px;
+    color: #d63638;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Admin Donate Icon */
 .gnn-ipinfo-donate-icon::after {
     content: '☕';
-    margin-left: 3px;
+    margin-left: 5px;
+    filter: grayscale(1) brightness(1.2);
+}
+
+/* Dark mode theme detection fallback */
+@media (prefers-color-scheme: dark) {
+    .gnn-ipinfo-container {
+        background: var(--gnn-ipinfo-bg-dark);
+    }
 }

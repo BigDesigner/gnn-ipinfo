@@ -212,9 +212,17 @@ class GNN_IPinfo_Updater
     public function handle_manual_check()
     {
         if (isset($_GET['gnn_ipinfo_check_update']) && '1' === $_GET['gnn_ipinfo_check_update']) {
+            if (!isset($_GET['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'gnn_ipinfo_manual_update')) {
+                wp_die(esc_html__('Security check failed.', 'gnn-ipinfo'));
+            }
+
             if (current_user_can('update_plugins')) {
                 delete_transient($this->transient_key);
                 delete_site_transient('update_plugins');
+                
+                add_action('admin_notices', function() {
+                    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Update cache cleared. WordPress will now check GitHub for new versions.', 'gnn-ipinfo') . '</p></div>';
+                });
             }
         }
     }

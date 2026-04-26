@@ -51,6 +51,12 @@ function gnn_ipinfo_render_settings_page() {
             submit_button();
             ?>
         </form>
+        <hr>
+        <p>
+            <a href="<?php echo esc_url(wp_nonce_url(admin_url('options-general.php?page=gnn-ipinfo&gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update')); ?>" class="button secondary">
+                <?php _e('Check for Updates Now', 'gnn-ipinfo'); ?>
+            </a>
+        </p>
     </div>
     <?php
 }
@@ -81,35 +87,64 @@ add_action('admin_enqueue_scripts', 'gnn_ipinfo_enqueue_styles');
 function gnn_ipinfo_shortcode($atts) {
     $token = get_option('gnn_ipinfo_token');
     if (!$token) {
-        return __('API Token not found. Please enter the API Token in the settings.', 'gnn-ipinfo');
+        return sprintf(
+            '<div class="gnn-ipinfo-error">%s</div>',
+            esc_html__('API Token not found. Please enter the API Token in the settings.', 'gnn-ipinfo')
+        );
     }
 
     $ip = $_SERVER['REMOTE_ADDR'];
-    $url = "https://ipinfo.io/$ip?token=$token";
+    
+    // Attempt to get data from cache (transient)
+    $cache_key = 'gnn_ipinfo_cache_' . md5($ip);
+    $data = get_transient($cache_key);
 
-    $response = wp_remote_get($url);
-    if (is_wp_error($response)) {
-        return __('API request failed.', 'gnn-ipinfo');
-    }
+    if (false === $data) {
+        $url = "https://ipinfo.io/$ip?token=$token";
+        $response = wp_remote_get($url, array('timeout' => 10));
 
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body, true);
+        if (is_wp_error($response)) {
+            return sprintf(
+                '<div class="gnn-ipinfo-error">%s</div>',
+                esc_html__('API request failed. Please try again later.', 'gnn-ipinfo')
+            );
+        }
 
-    if (!isset($data['ip'])) {
-        return __('IP information could not be retrieved.', 'gnn-ipinfo');
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        if (empty($data) || !isset($data['ip'])) {
+            return sprintf(
+                '<div class="gnn-ipinfo-error">%s</div>',
+                esc_html__('IP information could not be retrieved.', 'gnn-ipinfo')
+            );
+        }
+
+        // Cache the data for 1 hour
+        set_transient($cache_key, $data, HOUR_IN_SECONDS);
     }
 
     $output = '<div class="gnn-ipinfo-container">';
     $output .= '<div class="gnn-ipinfo-ip">' . esc_html($data['ip']) . '</div>';
     $output .= '<ul class="gnn-ipinfo-list">';
-    $output .= '<li><strong>' . __('Country:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['country']) . '</li>';
-    $output .= '<li><strong>' . __('Region:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['region']) . '</li>';
-    $output .= '<li><strong>' . __('City:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['city']) . '</li>';
-    $output .= '<li><strong>' . __('Postal Code:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['postal']) . '</li>';
-    $output .= '<li><strong>' . __('Organization:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['org']) . '</li>';
-    $output .= '<li><strong>' . __('Hostname:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['hostname']) . '</li>';
-    $output .= '<li><strong>' . __('Time Zone:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['timezone']) . '</li>';
-    $output .= '<li><strong>' . __('Location:', 'gnn-ipinfo') . '</strong> ' . esc_html($data['loc']) . '</li>';
+    
+    $fields = array(
+        'country'  => __('Country:', 'gnn-ipinfo'),
+        'region'   => __('Region:', 'gnn-ipinfo'),
+        'city'     => __('City:', 'gnn-ipinfo'),
+        'postal'   => __('Postal Code:', 'gnn-ipinfo'),
+        'org'      => __('Organization:', 'gnn-ipinfo'),
+        'hostname' => __('Hostname:', 'gnn-ipinfo'),
+        'timezone' => __('Time Zone:', 'gnn-ipinfo'),
+        'loc'      => __('Location:', 'gnn-ipinfo'),
+    );
+
+    foreach ($fields as $key => $label) {
+        if (!empty($data[$key])) {
+            $output .= '<li><strong>' . esc_html($label) . '</strong> ' . esc_html($data[$key]) . '</li>';
+        }
+    }
+
     $output .= '</ul>';
     $output .= '</div>';
 

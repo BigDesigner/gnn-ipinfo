@@ -2,7 +2,7 @@
 /**
  * Plugin Name:			GNN IPinfo
  * Description: 		A plugin that displays visitor IP information using the IPinfo.io API.
- * Version:				0.2.6
+ * Version:				0.2.7
  * Requires at least:	6.4
  * Requires PHP: 		7.4
  * Author URI: 			https://www.bigdesigner.com
@@ -104,17 +104,14 @@ function gnn_ipinfo_debug_mode_field_callback() {
     echo "<span class='description'>" . __('Display raw API response to administrators on the frontend.', 'gnn-ipinfo') . "</span>";
 }
 
-// Enqueue CSS and JS for both frontend and backend
+// Enqueue CSS for backend only
 function gnn_ipinfo_enqueue_assets() {
-    $version = '0.2.6'; // Bumped for release
-    // Changing the handle name to 'gnn-ipinfo-premium' to bypass old caches
-    wp_enqueue_style('gnn-ipinfo-premium', plugins_url('style.css', __FILE__), array(), $version);
+    $version = '0.2.7'; // Bumped for pure raw output release
     
-    if (!is_admin()) {
-        wp_enqueue_script('gnn-ipinfo-copy', plugins_url('assets/js/copy-ip.js', __FILE__), array(), $version, true);
+    if (is_admin()) {
+        wp_enqueue_style('gnn-ipinfo-admin', plugins_url('style.css', __FILE__), array(), $version);
     }
 }
-add_action('wp_enqueue_scripts', 'gnn_ipinfo_enqueue_assets');
 add_action('admin_enqueue_scripts', 'gnn_ipinfo_enqueue_assets');
 
 
@@ -159,42 +156,11 @@ function gnn_ipinfo_shortcode($atts) {
         set_transient($cache_key, $data, HOUR_IN_SECONDS);
     }
 
-    $output = '<div id="gnn-ipinfo-premium-box" class="gnn-ipinfo-container">';
-    $output .= '<div class="gnn-ipinfo-ip-wrapper">';
-    $output .= '<span class="gnn-ipinfo-ip-text">' . esc_html($data['ip']) . '</span>';
-    $output .= '<button class="gnn-ipinfo-copy-btn" title="' . esc_attr__('Copy IP', 'gnn-ipinfo') . '" aria-label="' . esc_attr__('Copy IP address', 'gnn-ipinfo') . '">';
-    $output .= '<svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-    $output .= '</button>';
-    $output .= '</div>';
-    $output .= '<ul class="gnn-ipinfo-list">';
-    
-    $fields = array(
-        'country'  => __('Country:', 'gnn-ipinfo'),
-        'region'   => __('Region:', 'gnn-ipinfo'),
-        'city'     => __('City:', 'gnn-ipinfo'),
-        'postal'   => __('Postal Code:', 'gnn-ipinfo'),
-        'org'      => __('Organization:', 'gnn-ipinfo'),
-        'hostname' => __('Hostname:', 'gnn-ipinfo'),
-        'timezone' => __('Time Zone:', 'gnn-ipinfo'),
-        'loc'      => __('Location:', 'gnn-ipinfo'),
-    );
-
-    foreach ($fields as $key => $label) {
-        if (!empty($data[$key])) {
-            $output .= '<li><strong>' . esc_html($label) . '</strong> ' . esc_html($data[$key]) . '</li>';
-        }
-    }
-
-    $output .= '</ul>';
-
-    // Debug Mode output
-    if (get_option('gnn_ipinfo_debug_mode') && current_user_can('manage_options')) {
-        $output .= '<div class="gnn-ipinfo-debug">';
-        $output .= '<h4>' . esc_html__('Debug Info (Admin Only):', 'gnn-ipinfo') . '</h4>';
-        $output .= '<pre>' . esc_html(wp_json_encode($data, JSON_PRETTY_PRINT)) . '</pre>';
-        $output .= '</div>';
-    }
-
+    // Universal theme-agnostic "anam babam usulü" code block
+    $output = '<div class="gnn-ipinfo-container" style="margin-bottom: 20px;">';
+    $output .= '<pre class="gnn-ipinfo-raw" style="padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; font-size: 14px; border: 1px solid rgba(128, 128, 128, 0.2); background: rgba(128, 128, 128, 0.05); line-height: 1.5;">';
+    $output .= '<code>' . esc_html(wp_json_encode($data, JSON_PRETTY_PRINT)) . '</code>';
+    $output .= '</pre>';
     $output .= '</div>';
 
     return $output;

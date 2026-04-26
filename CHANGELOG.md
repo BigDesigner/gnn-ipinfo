@@ -5,6 +5,11 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.7] - 2026-04-26
+### Changed
+- **Frontend:** Completely replaced the heavy frontend UI (cards, lists, buttons) with a lightweight, theme-agnostic `<pre><code>` block that prints raw JSON data ("anam babam usulü").
+- **Performance:** Removed frontend loading of `style.css` and `copy-ip.js`, making the shortcode output virtually zero-impact on page speed.
+
 ## [0.2.6] - 2026-04-26
 ### Fixed
 - **UI:** Pushed a hotfix to ensure the plain text action links layout is properly released and active for all users.

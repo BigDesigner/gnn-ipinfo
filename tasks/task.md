@@ -58,6 +58,9 @@ This document tracks the evolution of the GNN IPinfo WordPress plugin from its f
 - [x] Final README and Documentation sync.
 
 ## 📂 Backlog
+### Sprint v0.2.7 — Performance & Minimalism
+- [x] Reworked frontend shortcode to output raw JSON within a theme-agnostic `<pre>` block.
+- [x] Stripped frontend CSS and JS enqueues to improve site performance.
 ### Sprint v0.2.6 — Release Hotfix
 - [x] Bumped version to 0.2.6 to push the reverted UI changes to the updater.
 ### Sprint v0.2.5 — UI Enhancements

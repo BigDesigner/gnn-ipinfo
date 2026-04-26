@@ -5,6 +5,12 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.1.2] - 2026-04-26
+### Added
+- **Feature:** Added "Copy to Clipboard" button for the IP address.
+- **Feature:** Added "Debug Mode" for administrators to view raw API data.
+- **UI:** Refined Glassmorphism CSS for better theme compatibility and hover effects.
+
 ## [0.1.1] - 2026-04-26
 ### Added
 - **Performance:** Implemented 1-hour transient caching for IPinfo.io API requests.

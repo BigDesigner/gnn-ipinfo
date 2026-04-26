@@ -1,7 +1,7 @@
 # Project Snapshot: GNN IPinfo
 
 ## System Status
-- **Plugin Version:** 0.1.1
+- **Plugin Version:** 0.1.2
 - **Current Branch:** main
 - **Core Principles:** 
     - Zero 3rd-party Dependency (PHP side)

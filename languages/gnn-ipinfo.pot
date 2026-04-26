@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GNN IPinfo 1.0\n"
+"POT-Creation-Date: 2023-10-01 12:00+0000\n"
+"PO-Revision-Date: 2023-10-01 12:00+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+
+msgid "GNN IPinfo Settings"
+msgstr ""
+
+msgid "GNN IPinfo"
+msgstr ""
+
+msgid "API Settings"
+msgstr ""
+
+msgid "API Token"
+msgstr ""
+
+msgid "API Token not found. Please enter the API Token in the settings."
+msgstr ""
+
+msgid "API request failed."
+msgstr ""
+
+msgid "IP information could not be retrieved."
+msgstr ""
+
+msgid "Country:"
+msgstr ""
+
+msgid "Region:"
+msgstr ""
+
+msgid "City:"
+msgstr ""
+
+msgid "Postal Code:"
+msgstr ""
+
+msgid "Organization:"
+msgstr ""
+
+msgid "Hostname:"
+msgstr ""
+
+msgid "Time Zone:"
+msgstr ""
+
+msgid "Location:"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Donate"
+msgstr ""

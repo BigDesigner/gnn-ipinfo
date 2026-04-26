@@ -1,0 +1,40 @@
+.gnn-ipinfo-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gnn-ipinfo-ip {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.gnn-ipinfo-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.gnn-ipinfo-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.gnn-ipinfo-list li strong {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+    color: #333;
+}
+.gnn-ipinfo-donate-icon::after {
+    content: '☕';
+    margin-left: 3px;
+}

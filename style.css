@@ -81,8 +81,8 @@
     padding: 0 !important;
     margin: 0 !important;
     text-align: left !important;
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; /* Back to grid but compact */
+    display: flex !important;
+    flex-direction: column !important;
     gap: 10px !important;
 }
 

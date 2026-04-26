@@ -11,5 +11,8 @@
 - [x] **FEAT-003:** Implement a "Debug Mode".
 
 ## Documentation & Maintenance
-- [ ] **DOC-001:** Create a `README.md` for GitHub.
-- [ ] **DOC-002:** Update `CHANGELOG.md` after implementing caching.
+- [x] **DOC-001:** Create a `README.md` for GitHub.
+- [x] **DOC-002:** Update `CHANGELOG.md` for v0.2.3.
+- [x] **AUDIT-001:** Full security audit and production hardening.
+
+**STATUS: COMPLETED v0.2.3**

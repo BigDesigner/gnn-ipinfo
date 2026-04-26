@@ -5,6 +5,11 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.3] - 2026-04-26
+### Fixed
+- **Security:** Conducted full security audit and implemented ABSPATH guard in all PHP files.
+- **Security:** Enhanced data sanitization and output escaping throughout the plugin.
+
 ## [0.2.2] - 2026-04-26
 ### Fixed
 - **UI:** Forced single column layout for IP data cards as requested.

@@ -26,3 +26,9 @@
 - **Decision:** Use the native WordPress Settings API and `register_setting()`.
 - **Rationale:** Best practice for WordPress plugins, handles sanitization and security out of the box.
 - **Consequences:** Clean integration with the WordPress admin interface.
+## [ADR-005] Security Audit & Production Hardening
+- **Status:** Accepted
+- **Context:** Ensuring 100% production readiness and protection against direct file access vulnerabilities.
+- **Decision:** Implement strict ABSPATH guards in all PHP files and mandatory output escaping (`esc_html`, `esc_attr`).
+- **Rationale:** Prevents direct access to plugin files and protects against XSS/injection vulnerabilities.
+- **Consequences:** Version bumped to v0.2.3. All functional code is now protected.

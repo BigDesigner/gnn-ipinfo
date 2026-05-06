@@ -31,9 +31,13 @@ build/
 .env
 local-config.php
 
-# Antigravity / Agent Specific (Optional, usually kept but user might want to ignore some parts)
-# Keep memory-bank, specs, agents as they are core to context
-# .gemini/
+# Antigravity / Agent Specific - Local Only
+agents/
+memory-bank/
+tasks/
+architecture-notes.md
+security-audit.md
+.gemini/
 
 # ----------------------------------------------------------------------
 # Local Test Environments (DO NOT PUSH)

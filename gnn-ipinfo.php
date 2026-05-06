@@ -2,11 +2,11 @@
 /**
  * Plugin Name:			GNN IPinfo
  * Description: 		A plugin that displays visitor IP information using the IPinfo.io API.
- * Version:				0.2.7
+ * Version:				0.2.8
  * Requires at least:	6.4
  * Requires PHP: 		7.4
- * Author URI: 			https://www.bigdesigner.com
- * License: 			GPLv2
+ * Author URI: 			https://github.com/BigDesigner
+ * License: 			GPLv2 or later
  * License URI: 		https://www.gnu.org/licenses/gpl-2.0.html
  * Author: 				BigDesigner
  * Text Domain: 		gnn-ipinfo
@@ -47,7 +47,7 @@ add_action('admin_menu', 'gnn_ipinfo_settings_page');
 function gnn_ipinfo_render_settings_page() {
     ?>
     <div class="wrap">
-        <h1><?php _e('GNN IPinfo Settings', 'gnn-ipinfo'); ?></h1>
+        <h1><?php esc_html_e('GNN IPinfo Settings', 'gnn-ipinfo'); ?></h1>
         <form method="post" action="options.php">
             <?php
             settings_fields('gnn_ipinfo_options_group');
@@ -57,9 +57,9 @@ function gnn_ipinfo_render_settings_page() {
         </form>
         <hr>
         <div class="gnn-ipinfo-status-card">
-            <h2><?php _e('GNN System Info', 'gnn-ipinfo'); ?></h2>
+            <h2><?php esc_html_e('GNN System Info', 'gnn-ipinfo'); ?></h2>
             <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php _e('Plugin Version:', 'gnn-ipinfo'); ?></span>
+                <span class="gnn-ipinfo-status-label"><?php esc_html_e('Plugin Version:', 'gnn-ipinfo'); ?></span>
                 <span class="gnn-ipinfo-status-value">
                     <?php 
                     if (!function_exists('get_plugin_data')) {
@@ -71,7 +71,7 @@ function gnn_ipinfo_render_settings_page() {
                 </span>
             </div>
             <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php _e('API Provider:', 'gnn-ipinfo'); ?></span>
+                <span class="gnn-ipinfo-status-label"><?php esc_html_e('API Provider:', 'gnn-ipinfo'); ?></span>
                 <span class="gnn-ipinfo-status-value">ipinfo.io</span>
             </div>
         </div>
@@ -101,12 +101,12 @@ function gnn_ipinfo_token_field_callback() {
 function gnn_ipinfo_debug_mode_field_callback() {
     $debug = get_option('gnn_ipinfo_debug_mode');
     echo "<input type='checkbox' name='gnn_ipinfo_debug_mode' value='1' " . checked(1, $debug, false) . " /> ";
-    echo "<span class='description'>" . __('Display raw API response to administrators on the frontend.', 'gnn-ipinfo') . "</span>";
+    echo "<span class='description'>" . esc_html__('Display raw API response to administrators on the frontend.', 'gnn-ipinfo') . "</span>";
 }
 
 // Enqueue CSS for backend only
 function gnn_ipinfo_enqueue_assets() {
-    $version = '0.2.7'; // Bumped for pure raw output release
+    $version = '0.2.8'; // Bumped for pure raw output release
     
     if (is_admin()) {
         wp_enqueue_style('gnn-ipinfo-admin', plugins_url('style.css', __FILE__), array(), $version);
@@ -125,7 +125,11 @@ function gnn_ipinfo_shortcode($atts) {
         );
     }
 
-    $ip = $_SERVER['REMOTE_ADDR'];
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+    
+    if (empty($ip)) {
+        return '';
+    }
     
     // Attempt to get data from cache (transient)
     $cache_key = 'gnn_ipinfo_cache_' . md5($ip);
@@ -169,9 +173,9 @@ add_shortcode('gnn_ipinfo', 'gnn_ipinfo_shortcode');
 
 // Add plugin action links
 function gnn_ipinfo_plugin_links($links) {
-    $donate_link = '<a href="https://buymeacoffee.com/bigdesigner" target="_blank" style="font-weight:bold; color:#d63638;">' . esc_html__('Donate', 'gnn-ipinfo') . '</a>';
+    $donate_link = '<a href="' . esc_url('https://buymeacoffee.com/bigdesigner') . '" target="_blank" style="font-weight:bold; color:#d63638;">' . esc_html__('Donate', 'gnn-ipinfo') . '</a>';
     
-    $settings_link = '<a href="options-general.php?page=gnn-ipinfo">' . esc_html__('Settings', 'gnn-ipinfo') . '</a>';
+    $settings_link = '<a href="' . esc_url(admin_url('options-general.php?page=gnn-ipinfo')) . '">' . esc_html__('Settings', 'gnn-ipinfo') . '</a>';
     
     $update_url = wp_nonce_url(admin_url('plugins.php?gnn_ipinfo_check_update=1'), 'gnn_ipinfo_manual_update');
     $update_link = '<a href="' . esc_url($update_url) . '">' . esc_html__('Check Updates', 'gnn-ipinfo') . '</a>';
@@ -183,14 +187,8 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'gnn_ipinfo_plugi
 
 // Load text domain for translations
 function gnn_ipinfo_load_textdomain() {
+    // WordPress 4.6+ automatically loads translations if the plugin is on WordPress.org.
+    // We keep this for local development or non-org distribution.
     load_plugin_textdomain('gnn-ipinfo', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    if (function_exists('get_available_languages')) {
-        $languages = get_available_languages(dirname(plugin_basename(__FILE__)) . '/languages/');
-        if (in_array('tr_TR.mo', $languages)) {
-            error_log('tr_TR.mo dosyası yüklendi.');
-        } else {
-            error_log('tr_TR.mo dosyası yüklenemedi.');
-        }
-    }
 }
 add_action('plugins_loaded', 'gnn_ipinfo_load_textdomain');

@@ -5,6 +5,14 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.8] - 2026-05-07
+### Added
+- **Security:** Implemented comprehensive output escaping (`esc_html_e`, `esc_html__`) across the plugin for security compliance.
+- **Security:** Added validation, unslashing, and sanitization for `$_SERVER['REMOTE_ADDR']`.
+- **Standards:** Updated plugin headers with correct Author URI (GitHub) and License (GPLv2 or later).
+### Removed
+- **Cleanup:** Removed development debug logs (`error_log`) from production code.
+
 ## [0.2.7] - 2026-04-26
 ### Changed
 - **Frontend:** Completely replaced the heavy frontend UI (cards, lists, buttons) with a lightweight, theme-agnostic `<pre><code>` block that prints raw JSON data ("anam babam usulü").

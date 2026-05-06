@@ -175,7 +175,7 @@ class GNN_IPinfo_Updater
             'slug'          => 'gnn-ipinfo',
             'version'       => $release->version,
             'author'        => 'BigDesigner',
-            'homepage'      => 'https://www.bigdesigner.com',
+            'homepage'      => 'https://github.com/BigDesigner',
             'download_link' => $release->download_url,
             'sections'      => array(
                 'description' => 'A plugin that displays visitor IP information using the IPinfo.io API.',

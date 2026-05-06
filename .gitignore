@@ -38,6 +38,7 @@ tasks/
 architecture-notes.md
 security-audit.md
 .gemini/
+docs/
 
 # ----------------------------------------------------------------------
 # Local Test Environments (DO NOT PUSH)

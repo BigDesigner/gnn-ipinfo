@@ -5,6 +5,10 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.2.9] - 2026-08-02
+### Changed
+- **Admin:** Moved settings menu to top-level position `79.104` to align with the GNN Product Family menu position registry.
+
 ## [0.2.8] - 2026-05-07
 ### Added
 - **Security:** Implemented comprehensive output escaping (`esc_html_e`, `esc_html__`) across the plugin for security compliance.

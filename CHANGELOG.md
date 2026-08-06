@@ -7,8 +7,9 @@ and this project adheres to Semantic Versioning.
 
 ## [0.3.0] - 2026-08-06
 ### Changed
-- **Build:** Rebuilt the release workflow on the GNN standard: `v*` tag pushes now trigger a release automatically, and the version is resolved from the tag, then the manual override, then the `Version` header in `gnn-ipinfo.php`.
-- **Build:** The plugin is now packaged from the repo root into a clean `dist/gnn-ipinfo/` folder and zipped as `gnn-ipinfo-v<version>.zip`.
+- **Structure:** Moved the plugin core files (`gnn-ipinfo.php`, `inc/`, `languages/`, `assets/`, `style.css`) into a dedicated `gnn-ipinfo/` folder, so the plugin source is cleanly separated from repo-level meta files. Repo docs and agent directories now stay at the root and can never leak into a package.
+- **Build:** Rebuilt the release workflow on the GNN standard: `v*` tag pushes now trigger a release automatically, and the version is resolved from the tag, then the manual override, then the `Version` header in `gnn-ipinfo/gnn-ipinfo.php`.
+- **Build:** The plugin is now packaged by copying `gnn-ipinfo/` into `dist/gnn-ipinfo/` and zipped as `gnn-ipinfo-v<version>.zip`, replacing the previous root-level exclude list.
 ### Added
 - **Build:** Every workflow run now uploads the zip as a build artifact (90-day retention), so a package is downloadable even when no release is created.
 - **Build:** New `create_github_release` input allows building the zip without publishing a release.

@@ -50,4 +50,4 @@ test-results/
 blueprint.json
 package.json
 package-lock.json
-assets/images/
+gnn-ipinfo/assets/images/

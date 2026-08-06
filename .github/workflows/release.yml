@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version_override:
-        description: 'Optional version override (e.g. 0.3.1). Leave empty to read the version from gnn-ipinfo.php.'
+        description: 'Optional version override (e.g. 0.3.1). Leave empty to read the version from gnn-ipinfo/gnn-ipinfo.php.'
         required: false
         default: ''
       create_github_release:
@@ -37,7 +37,7 @@ jobs:
           elif [ -n "${{ github.event.inputs.version_override }}" ]; then
             VERSION="${{ github.event.inputs.version_override }}"
           else
-            VERSION=$(grep -m 1 "Version:" gnn-ipinfo.php | awk '{print $NF}' | tr -d '\r')
+            VERSION=$(grep -m 1 "Version:" gnn-ipinfo/gnn-ipinfo.php | awk '{print $NF}' | tr -d '\r')
           fi
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -45,25 +45,12 @@ jobs:
 
       - name: Prepare Clean Plugin Package Directory
         run: |
-          # The plugin code lives at the repo root, so copy from there into a single
-          # gnn-ipinfo/ folder and leave every repo-meta path behind. Zipping the repo
-          # root as-is would double-nest the plugin and break WordPress detection.
+          # The plugin source lives in gnn-ipinfo/, so copy only that folder. Repo-meta
+          # paths (.github, agents, tasks, docs, memory-bank, *.md) stay at the repo root
+          # and are therefore never packaged.
           mkdir -p dist/gnn-ipinfo
-          rsync -av \
-            --exclude='dist' \
-            --exclude='build' \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            --exclude='agents' \
-            --exclude='tasks' \
-            --exclude='docs' \
-            --exclude='specs' \
-            --exclude='memory-bank' \
-            --exclude='archive' \
-            --exclude='*.md' \
-            ./ dist/gnn-ipinfo/
-          # CHANGELOG.md is the only Markdown file that ships with the plugin.
+          cp -a gnn-ipinfo/. dist/gnn-ipinfo/
+          # CHANGELOG.md lives at the repo root but ships with the plugin.
           cp CHANGELOG.md dist/gnn-ipinfo/
           ls -R dist/gnn-ipinfo
 

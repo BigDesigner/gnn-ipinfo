@@ -5,6 +5,14 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.3.0] - 2026-08-06
+### Changed
+- **Build:** Rebuilt the release workflow on the GNN standard: `v*` tag pushes now trigger a release automatically, and the version is resolved from the tag, then the manual override, then the `Version` header in `gnn-ipinfo.php`.
+- **Build:** The plugin is now packaged from the repo root into a clean `dist/gnn-ipinfo/` folder and zipped as `gnn-ipinfo-v<version>.zip`.
+### Added
+- **Build:** Every workflow run now uploads the zip as a build artifact (90-day retention), so a package is downloadable even when no release is created.
+- **Build:** New `create_github_release` input allows building the zip without publishing a release.
+
 ## [0.2.9] - 2026-08-02
 ### Changed
 - **Admin:** Moved settings menu to top-level position `79.104` to align with the GNN Product Family menu position registry.

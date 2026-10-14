@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Resolve Version Number
         id: version

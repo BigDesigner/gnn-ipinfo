@@ -5,6 +5,21 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.3.1] - 2026-10-15
+### Fixed
+- **Navigation:** Fixed broken settings link on the Plugins page (`admin_url('admin.php?page=gnn-ipinfo')`) after top-level menu relocation.
+- **Updater:** Fixed WordPress transient negative caching bug in `updater.php` to prevent redundant GitHub API requests during rate limiting or outages.
+- **PHP 8 Compatibility:** Added null-safety guards across updater filter callbacks (`check_for_update`, `plugin_info`, `after_install`).
+- **Asset Loading:** Restricted admin stylesheet enqueueing strictly to `toplevel_page_gnn-ipinfo` to prevent style leaks across WordPress admin screens.
+
+### Added
+- **IP Detection:** Added native Cloudflare (`HTTP_CF_CONNECTING_IP`) resolution with strict `FILTER_VALIDATE_IP` validation and `gnn_ipinfo_client_ip` filter.
+- **Resilience:** Implemented transient failure backoff (3-minute cache) on remote API errors to prevent site latency during upstream outages.
+- **Admin Diagnostics:** Activated Debug Mode to display diagnostic technical details (cache HIT/MISS, source header, client IP) to administrators.
+- **Security:** Added password masking with a show/hide toggle for the API Token field in admin settings.
+- **Database Cleanup:** Added `uninstall.php` to completely clean up options and cached transients upon plugin deletion.
+- **CI/CD:** Upgraded `actions/checkout` to `v7` in the GitHub Actions release workflow.
+
 ## [0.3.0] - 2026-08-06
 ### Changed
 - **Structure:** Moved the plugin core files (`gnn-ipinfo.php`, `inc/`, `languages/`, `assets/`, `style.css`) into a dedicated `gnn-ipinfo/` folder, so the plugin source is cleanly separated from repo-level meta files. Repo docs and agent directories now stay at the root and can never leak into a package.

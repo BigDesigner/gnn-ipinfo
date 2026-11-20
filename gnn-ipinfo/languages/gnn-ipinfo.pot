@@ -1,19 +1,46 @@
+# Copyright (C) 2026 BigDesigner
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GNN IPinfo 1.0\n"
-"POT-Creation-Date: 2023-10-01 12:00+0000\n"
-"PO-Revision-Date: 2023-10-01 12:00+0000\n"
+"Project-Id-Version: GNN IPinfo 0.3.1\n"
+"Report-Msgid-Bugs-To: https://github.com/BigDesigner/gnn-ipinfo/issues\n"
+"POT-Creation-Date: 2026-11-20 03:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Domain: gnn-ipinfo\n"
 
 msgid "GNN IPinfo Settings"
 msgstr ""
 
 msgid "GNN IPinfo"
+msgstr ""
+
+msgid "GNN System Info"
+msgstr ""
+
+msgid "Plugin Version:"
+msgstr ""
+
+msgid "WordPress Version:"
+msgstr ""
+
+msgid "PHP Version:"
+msgstr ""
+
+msgid "API Provider:"
+msgstr ""
+
+msgid "Cache Engine:"
+msgstr ""
+
+msgid "External Object Cache"
+msgstr ""
+
+msgid "Database Transients"
 msgstr ""
 
 msgid "API Settings"
@@ -22,41 +49,70 @@ msgstr ""
 msgid "API Token"
 msgstr ""
 
+msgid "Debug Mode"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+#. translators: %s: link to IPinfo dashboard
+msgid "Enter your IPinfo API token. You can find or generate your token on the %s."
+msgstr ""
+
+msgid "IPinfo dashboard"
+msgstr ""
+
+msgid "Display diagnostic technical details to administrators on the frontend."
+msgstr ""
+
+msgid "When enabled, logged-in administrators will see cache status (HIT/MISS), resolved client IP, and header source beneath the shortcode output."
+msgstr ""
+
 msgid "API Token not found. Please enter the API Token in the settings."
 msgstr ""
 
-msgid "API request failed."
+msgid "Visitor IP address could not be determined."
 msgstr ""
 
-msgid "IP information could not be retrieved."
+msgid "IP information temporarily unavailable. Please try again in a few moments."
 msgstr ""
 
-msgid "Country:"
+msgid "API request failed. Please try again later."
 msgstr ""
 
-msgid "Region:"
+msgid "IP information could not be retrieved from provider."
 msgstr ""
 
-msgid "City:"
+msgid "Invalid response from IP information provider."
 msgstr ""
 
-msgid "Postal Code:"
+msgid "Visitor IP Information"
 msgstr ""
 
-msgid "Organization:"
+msgid "[GNN IPinfo Diagnostic — Admin Only]"
 msgstr ""
 
-msgid "Hostname:"
+#. translators: 1: cache status (HIT/MISS), 2: resolved header source, 3: resolved IP address
+msgid "Cache: %1$s | Source Header: %2$s | Resolved IP: %3$s"
 msgstr ""
 
-msgid "Time Zone:"
-msgstr ""
-
-msgid "Location:"
+msgid "Donate"
 msgstr ""
 
 msgid "Settings"
 msgstr ""
 
-msgid "Donate"
+msgid "Check Updates"
+msgstr ""
+
+msgid "A plugin that displays visitor IP information using the IPinfo.io API."
+msgstr ""
+
+msgid "Security check failed."
+msgstr ""
+
+msgid "Sorry, you are not allowed to update plugins on this site."
 msgstr ""

@@ -5,6 +5,20 @@
  * @version 0.3.1
  */
 
+/* API Token Input Wrapper */
+.gnn-ipinfo-token-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.gnn-ipinfo-token-wrap .button:focus-visible,
+.gnn-ipinfo-token-wrap input:focus-visible {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
 /* Admin Settings - System Info Card */
 .gnn-ipinfo-status-card {
     background: #fff;
@@ -32,6 +46,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     padding: 8px 0;
     border-bottom: 1px solid #f6f7f7;
     font-size: 13px;
@@ -50,15 +65,5 @@
     font-weight: 600;
     color: #1d2327;
     font-family: monospace;
-}
-
-/* Error message styling */
-.gnn-ipinfo-error {
-    padding: 14px 18px;
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 8px;
-    color: #b91c1c;
-    font-size: 14px;
-    margin-bottom: 15px;
+    text-align: right;
 }

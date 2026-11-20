@@ -26,11 +26,11 @@ class GNN_IPinfo_Updater
     private $repo = 'BigDesigner/gnn-ipinfo';
 
     /**
-     * Plugin slug (directory name/main file).
+     * Plugin basename (directory name/main file).
      *
      * @var string
      */
-    private $plugin_slug = 'gnn-ipinfo/gnn-ipinfo.php';
+    private $plugin_slug = '';
 
     /**
      * Transient key for caching the GitHub API response.
@@ -47,10 +47,27 @@ class GNN_IPinfo_Updater
     private $cache_duration = 43200;
 
     /**
-     * Initialize hooks.
+     * Allowed GitHub URL hosts for release metadata and package downloads.
+     *
+     * @var array
+     */
+    private $allowed_hosts = array(
+        'github.com',
+        'api.github.com',
+        'codeload.github.com',
+        'objects.githubusercontent.com',
+        'release-assets.githubusercontent.com',
+    );
+
+    /**
+     * Initialize hooks and resolve plugin slug dynamically.
      */
     public function __construct()
     {
+        $this->plugin_slug = defined('GNN_IPINFO_BASENAME')
+            ? GNN_IPINFO_BASENAME
+            : plugin_basename(dirname(__DIR__) . '/gnn-ipinfo.php');
+
         // Add filters for the update pipeline
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_for_update'));
         add_filter('plugins_api', array($this, 'plugin_info'), 20, 3);
@@ -62,12 +79,16 @@ class GNN_IPinfo_Updater
     }
 
     /**
-     * Get the current plugin version reliably from the main plugin file header.
+     * Get the current plugin version reliably.
      *
      * @return string
      */
     private function get_local_version()
     {
+        if (defined('GNN_IPINFO_VERSION')) {
+            return GNN_IPINFO_VERSION;
+        }
+
         $main_file = dirname(__DIR__) . '/gnn-ipinfo.php';
         if (file_exists($main_file)) {
             if (!function_exists('get_plugin_data')) {
@@ -82,6 +103,50 @@ class GNN_IPinfo_Updater
     }
 
     /**
+     * Validate and sanitize a GitHub release/package URL.
+     * Enforces HTTPS scheme and an explicit GitHub host allowlist.
+     *
+     * @param string $url Raw URL from GitHub API.
+     * @return string Sanitized URL or empty string if invalid/untrusted.
+     */
+    private function sanitize_github_url($url)
+    {
+        if (empty($url) || !is_string($url)) {
+            return '';
+        }
+
+        $sanitized = esc_url_raw($url, array('https'));
+        if (empty($sanitized)) {
+            return '';
+        }
+
+        $parsed = wp_parse_url($sanitized);
+        if (empty($parsed['scheme']) || 'https' !== strtolower($parsed['scheme']) || empty($parsed['host'])) {
+            return '';
+        }
+
+        $host = strtolower($parsed['host']);
+        if (in_array($host, $this->allowed_hosts, true)) {
+            return $sanitized;
+        }
+
+        if (substr($host, -strlen('.githubusercontent.com')) === '.githubusercontent.com') {
+            return $sanitized;
+        }
+
+        return '';
+    }
+
+    /**
+     * Store a short-lived negative cache sentinel to avoid hammering GitHub on failures.
+     */
+    private function cache_failure()
+    {
+        $negative_cache = (object) array('empty' => true, 'version' => '');
+        set_transient($this->transient_key, $negative_cache, 300);
+    }
+
+    /**
      * Fetch the latest release data from GitHub API.
      *
      * Uses positive and negative caching to protect against rate limits.
@@ -92,10 +157,10 @@ class GNN_IPinfo_Updater
     {
         $cached = get_transient($this->transient_key);
         if (false !== $cached) {
-            return (is_object($cached) && !empty($cached->version)) ? $cached : false;
+            return (is_object($cached) && !empty($cached->version) && !empty($cached->download_url)) ? $cached : false;
         }
 
-        $url = sprintf('https://api.github.com/repos/%s/releases/latest', $this->repo);
+        $url  = sprintf('https://api.github.com/repos/%s/releases/latest', $this->repo);
         $args = array(
             'headers' => array(
                 'Accept'     => 'application/vnd.github.v3+json',
@@ -106,35 +171,48 @@ class GNN_IPinfo_Updater
 
         $response = wp_remote_get($url, $args);
 
-        // On failure or non-200 code, cache negative result for 5 minutes
         if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
-            $negative_cache = (object) array('empty' => true, 'version' => '');
-            set_transient($this->transient_key, $negative_cache, 300);
+            $this->cache_failure();
             return false;
         }
 
         $body = json_decode(wp_remote_retrieve_body($response));
 
-        if (empty($body) || !isset($body->tag_name)) {
-            $negative_cache = (object) array('empty' => true, 'version' => '');
-            set_transient($this->transient_key, $negative_cache, 300);
+        if (JSON_ERROR_NONE !== json_last_error() || !is_object($body) || empty($body->tag_name)) {
+            $this->cache_failure();
             return false;
         }
 
-        $remote_version = ltrim((string) $body->tag_name, 'v');
-        $download_url   = '';
+        $remote_version = preg_replace('/^v/i', '', trim((string) $body->tag_name));
+        if (empty($remote_version)) {
+            $this->cache_failure();
+            return false;
+        }
 
+        $download_url = '';
         if (!empty($body->assets) && is_array($body->assets)) {
             foreach ($body->assets as $asset) {
-                if (isset($asset->name, $asset->browser_download_url) && false !== strpos($asset->name, '.zip')) {
-                    $download_url = $asset->browser_download_url;
-                    break;
+                if (isset($asset->name, $asset->browser_download_url) && false !== strpos((string) $asset->name, '.zip')) {
+                    $download_url = $this->sanitize_github_url($asset->browser_download_url);
+                    if (!empty($download_url)) {
+                        break;
+                    }
                 }
             }
         }
 
         if (empty($download_url) && !empty($body->zipball_url)) {
-            $download_url = $body->zipball_url;
+            $download_url = $this->sanitize_github_url($body->zipball_url);
+        }
+
+        if (empty($download_url)) {
+            $this->cache_failure();
+            return false;
+        }
+
+        $html_url = isset($body->html_url) ? $this->sanitize_github_url($body->html_url) : '';
+        if (empty($html_url)) {
+            $html_url = sprintf('https://github.com/%s', $this->repo);
         }
 
         $release_data = (object) array(
@@ -142,7 +220,7 @@ class GNN_IPinfo_Updater
             'download_url' => $download_url,
             'changelog'    => isset($body->body) ? (string) $body->body : '',
             'published_at' => isset($body->published_at) ? (string) $body->published_at : '',
-            'html_url'     => isset($body->html_url) ? (string) $body->html_url : '',
+            'html_url'     => $html_url,
         );
 
         set_transient($this->transient_key, $release_data, $this->cache_duration);
@@ -175,7 +253,7 @@ class GNN_IPinfo_Updater
 
         if (version_compare($release->version, $local_version, '>')) {
             $obj              = new stdClass();
-            $obj->id          = 'gnn-ipinfo/gnn-ipinfo.php';
+            $obj->id          = $this->plugin_slug;
             $obj->slug        = 'gnn-ipinfo';
             $obj->plugin      = $this->plugin_slug;
             $obj->new_version = $release->version;
@@ -193,7 +271,7 @@ class GNN_IPinfo_Updater
             }
 
             $item              = new stdClass();
-            $item->id          = 'gnn-ipinfo/gnn-ipinfo.php';
+            $item->id          = $this->plugin_slug;
             $item->slug        = 'gnn-ipinfo';
             $item->plugin      = $this->plugin_slug;
             $item->new_version = $local_version;
@@ -233,7 +311,7 @@ class GNN_IPinfo_Updater
             'homepage'      => 'https://github.com/BigDesigner/gnn-ipinfo',
             'download_link' => $release->download_url,
             'requires'      => '6.4',
-            'tested'        => '6.8',
+            'tested'        => '7.1',
             'requires_php'  => '7.4',
             'last_updated'  => $release->published_at,
             'sections'      => array(
@@ -264,10 +342,11 @@ class GNN_IPinfo_Updater
         global $wp_filesystem;
         $plugin_dir = WP_PLUGIN_DIR . '/gnn-ipinfo';
 
-        // Ensure the directory is correctly named
+        // Ensure the destination directory is correctly named (allow overwrite)
         if (isset($result['destination']) && $result['destination'] !== $plugin_dir && is_object($wp_filesystem)) {
-            $wp_filesystem->move($result['destination'], $plugin_dir);
-            $result['destination'] = $plugin_dir;
+            if ($wp_filesystem->move($result['destination'], $plugin_dir, true)) {
+                $result['destination'] = $plugin_dir;
+            }
         }
 
         delete_transient($this->transient_key);

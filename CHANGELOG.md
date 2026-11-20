@@ -5,6 +5,10 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.3.3] - 2026-11-20
+### Removed
+- **Admin UI:** Removed the redundant "GNN System Info" card from the admin settings page along with its unused CSS rules and translation strings.
+
 ## [0.3.2] - 2026-11-20
 ### Fixed
 - **WordPress 6.7–7.1+ Compatibility:** Moved `load_plugin_textdomain()` from `plugins_loaded` to `init` (priority `1`) to eliminate `_load_textdomain_just_in_time` notices.

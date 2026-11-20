@@ -22,30 +22,6 @@ msgstr "GNN IPinfo Ayarları"
 msgid "GNN IPinfo"
 msgstr "GNN IPinfo"
 
-msgid "GNN System Info"
-msgstr "GNN Sistem Bilgisi"
-
-msgid "Plugin Version:"
-msgstr "Eklenti Sürümü:"
-
-msgid "WordPress Version:"
-msgstr "WordPress Sürümü:"
-
-msgid "PHP Version:"
-msgstr "PHP Sürümü:"
-
-msgid "API Provider:"
-msgstr "API Sağlayıcı:"
-
-msgid "Cache Engine:"
-msgstr "Önbellek Motoru:"
-
-msgid "External Object Cache"
-msgstr "Harici Nesne Önbelleği"
-
-msgid "Database Transients"
-msgstr "Veritabanı Geçici Belleği (Transients)"
-
 msgid "API Settings"
 msgstr "API Ayarları"
 

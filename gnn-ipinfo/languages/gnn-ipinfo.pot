@@ -19,30 +19,6 @@ msgstr ""
 msgid "GNN IPinfo"
 msgstr ""
 
-msgid "GNN System Info"
-msgstr ""
-
-msgid "Plugin Version:"
-msgstr ""
-
-msgid "WordPress Version:"
-msgstr ""
-
-msgid "PHP Version:"
-msgstr ""
-
-msgid "API Provider:"
-msgstr ""
-
-msgid "Cache Engine:"
-msgstr ""
-
-msgid "External Object Cache"
-msgstr ""
-
-msgid "Database Transients"
-msgstr ""
-
 msgid "API Settings"
 msgstr ""
 

@@ -75,30 +75,6 @@ function gnn_ipinfo_render_settings_page() {
             submit_button();
             ?>
         </form>
-        <hr>
-        <div class="gnn-ipinfo-status-card">
-            <h2><?php esc_html_e('GNN System Info', 'gnn-ipinfo'); ?></h2>
-            <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php esc_html_e('Plugin Version:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value"><?php echo esc_html(GNN_IPINFO_VERSION); ?></span>
-            </div>
-            <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php esc_html_e('WordPress Version:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value"><?php echo esc_html(get_bloginfo('version')); ?></span>
-            </div>
-            <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php esc_html_e('PHP Version:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value"><?php echo esc_html(PHP_VERSION); ?></span>
-            </div>
-            <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php esc_html_e('API Provider:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value">ipinfo.io</span>
-            </div>
-            <div class="gnn-ipinfo-status-item">
-                <span class="gnn-ipinfo-status-label"><?php esc_html_e('Cache Engine:', 'gnn-ipinfo'); ?></span>
-                <span class="gnn-ipinfo-status-value"><?php echo esc_html(wp_using_ext_object_cache() ? __('External Object Cache', 'gnn-ipinfo') : __('Database Transients', 'gnn-ipinfo')); ?></span>
-            </div>
-        </div>
     </div>
     <?php
 }

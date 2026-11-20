@@ -2,7 +2,7 @@
 /**
  * Plugin Name:			GNN IPinfo
  * Description: 		A plugin that displays visitor IP information using the IPinfo.io API.
- * Version:				0.3.1
+ * Version:				0.3.2
  * Requires at least:	6.4
  * Tested up to:		7.1
  * Requires PHP: 		7.4
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GNN_IPINFO_VERSION', '0.3.1');
+define('GNN_IPINFO_VERSION', '0.3.2');
 define('GNN_IPINFO_FILE', __FILE__);
 define('GNN_IPINFO_BASENAME', plugin_basename(__FILE__));
 

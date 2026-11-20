@@ -99,7 +99,7 @@ class GNN_IPinfo_Updater
                 return $plugin_data['Version'];
             }
         }
-        return '0.3.1';
+        return '0.3.2';
     }
 
     /**

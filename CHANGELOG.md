@@ -5,6 +5,19 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.3.2] - 2026-11-20
+### Fixed
+- **WordPress 6.7–7.1+ Compatibility:** Moved `load_plugin_textdomain()` from `plugins_loaded` to `init` (priority `1`) to eliminate `_load_textdomain_just_in_time` notices.
+- **Security (IP Spoofing):** Restricted `HTTP_CF_CONNECTING_IP` trust to active Cloudflare proxy requests (`HTTP_CF_RAY` present or explicitly allowed via `gnn_ipinfo_trust_cloudflare_header`) and re-validated post-filter `gnn_ipinfo_client_ip` values with `FILTER_VALIDATE_IP`.
+- **Security (Updater & CSP):** Enforced HTTPS and explicit GitHub host allowlist (`sanitize_github_url`) on release/package URLs, resolved plugin slug dynamically, added `$overwrite = true` to `$wp_filesystem->move()`, and replaced inline `onclick` with CSP-compliant `wp_add_inline_script()`.
+- **Accessibility & Frontend UX:** Added `role="alert"` and self-contained theme-agnostic styles to `.gnn-ipinfo-error`, added `tabindex="0"`, `role="region"`, and `aria-label` to scrollable `<pre>` output, and added `label_for`, `aria-pressed`, `aria-controls`, `flex-wrap`, and `:focus-visible` improvements in admin settings.
+- **i18n & Packaging:** Synced `.pot` and `gnn-ipinfo-tr_TR.po`/`.mo` with all active strings, localized diagnostic box output, and removed duplicate `tr_TR.*` files and empty `assets/js/` directory.
+- **CI/CD Security:** Passed `version_override` through `env:` in `.github/workflows/release.yml`, added tag-vs-header version validation, and added a `php -l` syntax check before zip packaging.
+
+### Changed
+- **Versioning:** Introduced centralized `GNN_IPINFO_VERSION` constant and updated WordPress tested-up-to compatibility metadata to `7.1`.
+- **Uninstaller:** Extended `uninstall.php` to clean up options and transients across Multisite installations.
+
 ## [0.3.1] - 2026-10-15
 ### Fixed
 - **Navigation:** Fixed broken settings link on the Plugins page (`admin_url('admin.php?page=gnn-ipinfo')`) after top-level menu relocation.

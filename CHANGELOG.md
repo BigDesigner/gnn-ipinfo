@@ -5,6 +5,10 @@ All notable changes to the **GNN IPinfo** plugin will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to Semantic Versioning.
 
+## [0.3.5] - 2026-11-25
+### Fixed
+- **Updater:** Read the installed local version directly from the plugin header on disk via `get_local_version()` to avoid stale WordPress `checked` cache values during update checks.
+
 ## [0.3.4] - 2026-11-21
 ### Changed
 - **Updater:** Standardized `GNN_IPinfo_Updater` to the unified GNN GitHub Updater specification.
